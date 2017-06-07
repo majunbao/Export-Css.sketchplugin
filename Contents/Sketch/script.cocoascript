@@ -1,0 +1,43 @@
+          var onRun = function(context) {
+          var sketch = context.api()
+
+
+var document = sketch.selectedDocument;
+var selection = document.selectedLayers;
+var page = document.selectedPage;
+
+// log(selection.isEmpty)
+// 
+// var group = page.newGroup({frame: new sketch.Rectangle(0, 0, 100, 100), name:"Test"});
+// var rect = group.newShape({frame: new sketch.Rectangle(10, 10, 80, 80)});
+// 
+// log(selection.clear());
+// selection.iterate(function(item) { log(item.name); } );
+
+//
+var text = '';
+function generate(item){
+    item.iterate(function(a){
+      log(a.frame)
+    })
+    var frame = item.frame;
+    var itemCss = 'width: ' + frame.width + 'px;' + '\r\n'
+                + 'height: ' + frame.height + 'px;';
+    log(itemCss)
+}
+ 
+selection.iterate(generate);
+log(text);
+// selection.clear();
+// log(selection.isEmpty);
+// 
+// group.select();
+// rect.addToSelection();
+// 
+// sketch.getStringFromUser("Test", "default");
+// sketch.getSelectionFromUser("Test", ["One", "Two"], 1);
+// sketch.message("Hello mum!");
+// sketch.alert("Title", "message");
+
+          };
+          

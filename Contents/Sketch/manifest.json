@@ -1,0 +1,24 @@
+{
+  "author": "",
+  "commands": [
+    {
+      "script": "script.cocoascript",
+      "name": "Export Css",
+      "handlers": {
+        "run": "onRun"
+      },
+      "identifier": "com.bohemiancoding.sketch.runscriptidentifier"
+    }
+  ],
+  "menu": {
+    "title": "Export Css",
+    "items": [
+      "com.bohemiancoding.sketch.runscriptidentifier"
+    ]
+  },
+  "identifier": "com.example.sketch.435f0e7a-1852-449e-b193-0ceabc037568",
+  "version": "1.0",
+  "description": "",
+  "authorEmail": "",
+  "name": "Export Css"
+}

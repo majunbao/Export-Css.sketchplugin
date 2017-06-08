@@ -1,43 +1,55 @@
-          var onRun = function(context) {
-          var sketch = context.api()
+var onRun = function (context) {
+  var sketch = context.api()
 
 
-var document = sketch.selectedDocument;
-var selection = document.selectedLayers;
-var page = document.selectedPage;
+  var document = sketch.selectedDocument;
+  var page = document.selectedPage;
+  var selection = document.selectedLayers;
 
-// log(selection.isEmpty)
-// 
-// var group = page.newGroup({frame: new sketch.Rectangle(0, 0, 100, 100), name:"Test"});
-// var rect = group.newShape({frame: new sketch.Rectangle(10, 10, 80, 80)});
-// 
-// log(selection.clear());
-// selection.iterate(function(item) { log(item.name); } );
+  var className = '.icon';
+  var className_prefix = 'icon';
+  var img_url = 'images/icon.png';
 
-//
-var text = '';
-function generate(item){
-    item.iterate(function(a){
-      log(a.frame)
+  var text = className
+    + '{\r\n'
+    + '  background: url(' + img_url + ') no-repeat;\r\n'
+    + '}\r\n'
+
+  // selection.isEmpty || sketch.message('2')
+  if (selection.isEmpty) {
+    sketch.alert('将您需要导出的画板选中，我们将自动为您导出到剪切板。', '请选择画板');
+  } else if (selection.length !== 1) {
+    sketch.alert('同时只能选择一张画板。', '请选择画板');
+  } else {
+    selection.iterate(function (item) {
+      var icons = item;
+      icons.iterate(function (icon) {
+        var frame = icon.frame;
+        var iconCss = '.' + icon.name
+          + ' {\r\n'
+          + '  width: ' + Math.round(frame.width) + 'px;' + '\r\n'
+          + '  height: ' + Math.round(frame.height) + 'px;\r\n'
+          + '  background-position: -' + Math.round(frame.x) + 'px -' + Math.round(frame.y) + 'px;\r\n'
+          + '}\r\n';
+        text += iconCss;
+      })
     })
-    var frame = item.frame;
-    var itemCss = 'width: ' + frame.width + 'px;' + '\r\n'
-                + 'height: ' + frame.height + 'px;';
-    log(itemCss)
-}
- 
-selection.iterate(generate);
-log(text);
-// selection.clear();
-// log(selection.isEmpty);
-// 
-// group.select();
-// rect.addToSelection();
-// 
-// sketch.getStringFromUser("Test", "default");
-// sketch.getSelectionFromUser("Test", ["One", "Two"], 1);
-// sketch.message("Hello mum!");
-// sketch.alert("Title", "message");
+    sketch.alert(text, "d")
+  }
 
-          };
-          
+  // sketch.alert('tit', selection.isEmpty.toString());
+  // sketch.alert('ddd', selection.length + '1')
+
+  // selection.iterate(function (item) {
+  //   item.iterate(function (a) {
+  //     var frame = a.frame;
+  //     var itemCss = 'width: ' + Math.round(frame.width) + 'px;' + '\r\n'
+  //       + 'height: ' + Math.round(frame.height) + 'px;';
+  //     log(a.name)
+  //     text += itemCss;
+  //   })
+  // });
+
+  // sketch.alert("Title", text);
+
+};
